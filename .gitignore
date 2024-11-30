@@ -1,2 +1,4 @@
 # Secrets file
 .env
+
+.idea
