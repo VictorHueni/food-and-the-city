@@ -1,26 +1,16 @@
-version: '3.9'
-
 services:
   db:
-    image: postgis/postgis:latest
+    image: postgis/postgis
     restart: always
-    container_name: postgis_db
-    ports:
-      - "5432:5432"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: food_and_the_city
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: food-and-the-city
+    ports:
+        - 5432:5432
     volumes:
-      - ./db/scripts:/docker-entrypoint-initdb.d:ro
-      - ./db/data/postgis:/var/lib/postgresql/data
-    command: >
-      sh -c "
-      docker-entrypoint.sh postgres &
-      sleep 10 &&
-      psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/create_db.sql &&
-      wait"
-  
+        - ./data/postgis:/var/lib/postgresql/data
+
   api:
     build:
       context: ./api
@@ -30,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://root:root@db/food_and_the_city
+      DATABASE_URL: postgresql+psycopg2://root:root@db:5432/food-and-the-city
 
 volumes:
   db_data:

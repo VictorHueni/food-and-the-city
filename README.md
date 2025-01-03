@@ -24,6 +24,12 @@ To set up and run this project, ensure you have the following installed:
 
 ## Setup Instructions
 
+run the craete table script
+create a .env in the root folder 
+run the jupyter notebok
+run the update for  geography
+open the postmancollection
+
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>

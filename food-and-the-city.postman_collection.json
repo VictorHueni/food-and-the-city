@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "288bf6bb-787e-425c-8823-4c6f8c49465a",
+		"name": "food-and-the-city",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26557699",
+		"_collection_link": "https://victor-ksvsfv8267vz.postman.co/workspace/provider_portal~2970f8a3-19fe-4865-8ebd-27f7783b0647/collection/26557699-288bf6bb-787e-425c-8823-4c6f8c49465a?action=share&source=collection_link&creator=26557699"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/v1/movies?actor=Leonardo&Genre=Sci-fi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2010",
+							"disabled": true
+						},
+						{
+							"key": "director",
+							"value": "Nolan",
+							"disabled": true
+						},
+						{
+							"key": "has_filming_location",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Inception",
+							"disabled": true
+						},
+						{
+							"key": "actor",
+							"value": "Leonardo"
+						},
+						{
+							"key": "Genre",
+							"value": "Sci-fi"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Movies By Year",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/movies?year=2010",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2010"
+								},
+								{
+									"key": "director",
+									"value": "Nolan",
+									"disabled": true
+								},
+								{
+									"key": "has_filming_location",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Inception",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Get Movies By Director",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/movies?director=Nolan",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2010",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Nolan"
+								},
+								{
+									"key": "has_filming_location",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Inception",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Get Movies that Has a filming locations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/movies?has_filming_location=true",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2010",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Nolan",
+									"disabled": true
+								},
+								{
+									"key": "has_filming_location",
+									"value": "true"
+								},
+								{
+									"key": "name",
+									"value": "Inception",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Get Movies that Has a filming locations By Actor",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/movies?actor=Leonardo",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2010",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Nolan",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Inception",
+									"disabled": true
+								},
+								{
+									"key": "actor",
+									"value": "Leonardo"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Get Movies By Genre",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/movies?genre=Action",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2010",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Nolan",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Inception",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "Action"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/v1/locations?suburb=Manhattan&city=City of New York&country_code=us",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"locations"
+					],
+					"query": [
+						{
+							"key": "suburb",
+							"value": "Manhattan"
+						},
+						{
+							"key": "city",
+							"value": "City of New York"
+						},
+						{
+							"key": "country_code",
+							"value": "us"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Locations By  Suburb, City, Country Code",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/locations?suburb=Manhattan&city=City of New York&country_code=us",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "suburb",
+									"value": "Manhattan"
+								},
+								{
+									"key": "city",
+									"value": "City of New York"
+								},
+								{
+									"key": "country_code",
+									"value": "us"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Filming Location",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/v1/filming-locations?genre=Sci-fi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"filming-locations"
+					],
+					"query": [
+						{
+							"key": "actor",
+							"value": "Robert",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "Sci-fi"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Filming Location By IMDB_ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/filming-locations?imdb_id=tt0087332",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"filming-locations"
+							],
+							"query": [
+								{
+									"key": "imdb_id",
+									"value": "tt0087332"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/v1/restaurants?nearby_filming_location=123",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"restaurants"
+					],
+					"query": [
+						{
+							"key": "actor",
+							"value": "Robert",
+							"disabled": true
+						},
+						{
+							"key": "nearby_filming_location",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Restaurant Nearby By Filming Locations Id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/restaurants?nearby_filming_location=123",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"restaurants"
+							],
+							"query": [
+								{
+									"key": "nearby_filming_location",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "Ger Restaurant Nearby By Lat/Lon",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/v1/restaurants?latitude=40.71614455&longitude=-73.99790367225708&distance=1000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"restaurants"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "40.71614455"
+								},
+								{
+									"key": "longitude",
+									"value": "-73.99790367225708"
+								},
+								{
+									"key": "distance",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	]
+}
