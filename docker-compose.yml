@@ -1,0 +1,32 @@
+
+services:
+  db:
+    image: postgis/postgis:latest
+    restart: always
+    container_name: postgis_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: food_and_the_city
+    volumes:
+      - ./db/scripts:/docker-entrypoint-initdb.d:ro
+      - ./db/data/postgis:/var/lib/postgresql/data
+    command: >
+      sh -c "
+      docker-entrypoint.sh postgres &
+      sleep 10 &&
+      psql -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/create_db.sql &&
+      wait"
+  
+  api:
+    build:
+      context: ./api
+    container_name: flask_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://root:root@db/food_and_the_city
