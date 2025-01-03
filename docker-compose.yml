@@ -1,3 +1,4 @@
+version: '3.9'
 
 services:
   db:
@@ -30,3 +31,6 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://root:root@db/food_and_the_city
+
+volumes:
+  db_data:
