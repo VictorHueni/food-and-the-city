@@ -1,0 +1,12 @@
+services:
+    postgis:
+        image: postgis/postgis
+        restart: always
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: food-and-the-city
+        ports:
+            - 5432:5432
+        volumes:
+            - ./data/postgis:/var/lib/postgresql/data
