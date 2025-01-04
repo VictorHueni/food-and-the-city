@@ -24,8 +24,8 @@ To set up and run this project, ensure you have the following installed:
 
 ## Setup Instructions
 
-run the craete table script
-create a .env in the root folder 
+[x] run the craete table script
+[x] create a .env in the root folder 
 run the jupyter notebok
 run the update for  geography
 open the postmancollection
