@@ -14,10 +14,3 @@ DROP TABLE IF EXISTS fc_actors CASCADE;
 DROP TABLE IF EXISTS fc_movies CASCADE;
 
 DROP TABLE IF EXISTS fc_locations CASCADE;
-
-
--- Add geography type to store geospatial data
-UPDATE
-    fc_locations
-SET
-    loc_geography = ST_SetSRID(ST_MakePoint(loc_longitude, loc_latitude), 4326);

@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Jupyter notebook sample
-
 # In[4]:
-
-
 #Read data
 import xml.etree.ElementTree as ET
 import pandas as pd
@@ -47,19 +43,13 @@ logger.info("Starting data ingestion pipeline...")
 # # Data Collection
 
 # In[5]:
-
-# Load environment variables from .env file
 load_dotenv()
-
-# Access the secrets
 app_token = os.getenv("APP_TOKEN")
 username = os.getenv("OPEN_DATA_NYC_USERNAME")
 password = os.getenv("OPEN_DATA_NYC_PASSWORD")
 
 
 # In[6]:
-
-
 def fetch_restaurant_data(app_token, username, password, dataset_id="pitm-atqc", limit=1000):
     """
     Fetch restaurant data from the NYC Open Data API.
@@ -222,7 +212,6 @@ def fetch_movies_data(kaggle_dataset, filename="25k IMDb movie Dataset.csv"):
 
 
 # In[9]:
-# Reading data
 logger.info(f"Reading Restaurant data from External API")
 df_restaurants_raw = fetch_restaurant_data(app_token, username, password)
 logger.info("Restaurant data fetched successfully.")    
@@ -239,9 +228,6 @@ logger.info("Filming locations data fetched successfully.")
 
 
 # In[11]:
-
-
-# Example usage
 kaggle_dataset = "utsh0dey/25k-movie-dataset"
 logger.info(f"Reading Movies data from Kaggle dataset: {kaggle_dataset}")
 df_movies_raw = fetch_movies_data(kaggle_dataset)
@@ -293,10 +279,6 @@ def extract_year(df, column_name='year'):
     """
     # Extract the four-digit year using regex
     df[column_name] = df[column_name].str.extract(r'(\b\d{4}\b)', expand=False)
-
-    # Replace any NaN values with "null"
-    #df[column_name] = df[column_name].astype('object').fillna(None)
-    #df[column_name] = df[column_name].astype('Int64')  # Pandas nullable integer type
 
     return df
 
@@ -430,18 +412,12 @@ def process_movie_data(df_movies):
             - df_movies_actors (pd.DataFrame): Movies_Actors link table.
     """
     df_movies = extract_movie_id(df_movies, path_column='path', new_column='imdb_id')
-    
-    # Step 1: Prepare the genres column
     df_movies = prepare_column(df_movies, old_column_name='Generes', new_column_name='genres')
-
-    # Step 2: Extract 4-digit year
     df_movies = extract_year(df_movies, column_name='year')
 
-    # Step 3: Create the Genres lookup table
     df_genres = create_lookup_table(df_movies, column_name='genres', id_column_name='genre_id', value_column_name='genre')
     df_genres = df_genres.drop_duplicates(subset=['genre'])
 
-    # Step 4: Create the Movies_Genres link table
     df_movies_genres = create_link_table(
         df_movies,
         df_genres,
@@ -451,18 +427,14 @@ def process_movie_data(df_movies):
         value_column_name='genre'
     )
     df_movies_genres = df_movies_genres.drop_duplicates(subset=['genre_id', 'imdb_id'])
-    
-    # Step 5: Prepare the actors column
+
     df_movies = prepare_column(df_movies, old_column_name='Top 5 Casts', new_column_name='actors')
     df_movies = df_movies.drop_duplicates(subset=['imdb_id'])
 
-    # Step 6: Create the Actors lookup table
     df_actors = create_lookup_table(
         df_movies, column_name='actors', id_column_name='actor_id', value_column_name='actor_name'
     )
     df_actors = df_actors.drop_duplicates(subset=['actor_name'])
-
-    # Step 7: Create the Movies_Actors link table
     df_movies_actors = create_link_table(
         df_movies,
         df_actors,
@@ -473,7 +445,6 @@ def process_movie_data(df_movies):
     )
     df_movies_actors = df_movies_actors.drop_duplicates(subset=['actor_id', 'imdb_id'])
 
-    # Step 8: Clean and reorder the movies DataFrame
     df_movies = clean_and_reorder_movies(df_movies)
 
     return df_movies, df_genres, df_movies_genres, df_actors, df_movies_actors
@@ -530,40 +501,35 @@ def process_filming_locations(df):
            - df_filming_locations: Contains metadata and IMDB details.
            - df_filming_locations_movies: Contains location details.
    """
-    # Step 1: Add a unique identifier for each row
+    # Add a unique identifier for each row
     df['location_id'] = range(1, len(df) + 1) #[str(uuid.uuid4()) for _ in range(len(df))]
     
-    # Step 2: Rename 'IMDB LINK' to 'imdb_id' and extract the ID from the URL
+    # Extract 'imdb_id' from the URL
     df = df.rename(columns={'IMDB LINK': 'imdb_id'})
     df['imdb_id'] = df['imdb_id'].apply(
         lambda x: re.search(r'tt\d+', x).group() if isinstance(x, str) and re.search(r'tt\d+', x) else None
     )
     
-    # Step 3: Extract the Director/Filmmaker ID from the 'Director/Filmmaker IMDB Link' column
+    # Extract the Director/Filmmaker ID from the 'Director/Filmmaker IMDB Link' column
     df['director_imdb_id'] = df['Director/Filmmaker IMDB Link'].apply(
         lambda x: re.search(r'nm\d+', x).group() if isinstance(x, str) and re.search(r'nm\d+', x) else None
     )
-    
-    # Step 4: Clean the Location Display Text field
+
+    # Clean the field from HTML Tags, extra spaces, newline characters
     df['Location Display Text'] = df['Location Display Text'].apply(clean_location_text)
-    
-    # Step 4: Clean the Location Display Text field
     df['Client or book location indicator'] = df['Client or book location indicator'].apply(clean_location_text)
 
-
+    # Normalize naming
     df.columns = df.columns.str.lower()
     df = df.rename(columns={
         'movie title': 'title',
         'location display text': 'address',
         'client or book location indicator': 'address_indicator'
     })
-    
-    # Step 5: Create df_filming_locations
-    #df_filming_locations = df[['filming_locations_id', 'Director/Filmmaker Name', 'director_imdb_id']].copy()
+
     df_locations = df[['location_id', 'address', 'address_indicator', 'latitude',
                                'longitude', 'borough', 'neighborhood']].copy()
-    
-    # Step 6: Create df_filming_locations_movies
+
     df_locations_movies = df[['location_id', 'imdb_id']].copy()
     
     return df_locations, df_locations_movies
@@ -591,7 +557,7 @@ def process_restaurant_data(df):
     Returns:
         tuple: (df_restaurants, df_locations, df_restaurants_locations)
     """
-    # Step 1: Drop unnecessary columns
+
     columns_to_drop = [
         'sidewalk_dimensions_length', 'sidewalk_dimensions_width', 'sidewalk_dimensions_area',
         'approved_for_sidewalk_seating', 'approved_for_roadway_seating', 'qualify_alcohol',
@@ -602,11 +568,11 @@ def process_restaurant_data(df):
     ]
     df = df.drop(columns=columns_to_drop, errors='ignore')  # Safeguard against missing columns
 
-    # Step 2: Add unique identifiers
+    # Add unique identifiers
     df['restaurant_id'] = range(1, len(df) + 1)
     df['location_id'] = range(234, 234 + len(df)) #[str(uuid.uuid4()) for _ in range(len(df))]
 
-    # Step 3: Transform the landmarkdistrict_terms column to boolean
+    # Transform the landmarkdistrict_terms column to boolean
     df['landmarkdistrict_terms'] = df['landmarkdistrict_terms'].fillna('false')  # Replace NaN with 'false'
     df['landmarkdistrict_terms'] = df['landmarkdistrict_terms'].str.lower().map({'yes': True, 'false': False})
 
@@ -615,10 +581,8 @@ def process_restaurant_data(df):
         'bulding_number': 'building_number', 
     })
 
-    # Step 4: Create df_restaurants
     df_restaurants = df[['restaurant_id', 'location_id', 'restaurant_name', 'legal_business_name', 'doing_business_as_dba', 'seating_interest_sidewalk', 'landmarkdistrict_terms']].copy()
 
-    # Step 5: Create df_locations
     df_locations = df[['location_id', 'building_number', 'street', 'borough', 'zip',
                        'business_address', 'latitude', 'longitude', 'nta']].copy()
 
@@ -795,9 +759,17 @@ def process_locations_with_geopy(df):
 
 
 # In[23]:
+current_dir = os.path.dirname(os.path.abspath(__file__))
+output_file_path = os.path.join(current_dir, "outputs", "standardized_locations.csv")
 
-
-df_standardized_locations = process_locations_with_geopy(df_unified_locations)
+if os.path.exists(output_file_path):
+    print(f"File '{output_file_path}' exists. Reading data from the file...")
+    df_standardized_locations = pd.read_csv(output_file_path)
+else:
+    print(f"File '{output_file_path}' does not exist. Processing data...")
+    df_standardized_locations = process_locations_with_geopy(df_unified_locations)
+    df_standardized_locations.to_csv(output_file_path, index=False)
+    print(f"Processed data saved to '{output_file_path}'.")
 logger.info("Location Geocode transformation completed.")
 logger.info("Data transformation completed.")
 
@@ -918,8 +890,6 @@ mapping_fc_movies = {
 
 
 # In[26]:
-
-
 def rename_columns(df, column_mapping):
     """
     Rename DataFrame columns using a mapping dictionary.
@@ -935,30 +905,13 @@ def rename_columns(df, column_mapping):
 
 
 # In[27]:
-
-
-# Rename columns for fc_locations
 df_locations_renamed = rename_columns(df_standardized_locations, mapping_fc_locations)
-
-# Rename columns for fc_filming_locations
 df_filming_locations_renamed = rename_columns(df_locations_movies, mapping_fc_filming_locations)
-
-# Rename columns for fc_restaurants
 df_restaurants_renamed = rename_columns(df_restaurants, mapping_fc_restaurants)
-
-# Rename columns for fc_actors
 df_actors_renamed = rename_columns(df_actors, mapping_fc_actors)
-
-# Rename columns for fc_genre
 df_genres_renamed = rename_columns(df_genres, mapping_fc_genre)
-
-# Rename columns for fc_genres_movies
 df_movies_genres_renamed = rename_columns(df_movies_genres, mapping_fc_genres_movies)
-
-# Rename columns for fc_actors_movies
 df_movies_actors_renamed = rename_columns(df_movies_actors, mapping_fc_actors_movies)
-
-# Rename columns for fc_movies
 df_movies_cleaned_renamed = rename_columns(df_movies_cleaned, mapping_fc_movies)
 
 
@@ -966,14 +919,8 @@ df_movies_cleaned_renamed = rename_columns(df_movies_cleaned, mapping_fc_movies)
 # ## Data Loading (db connection + INSERT)
 
 # In[28]:
-
-
-# Create the database connection URL
-# Get the database connection parameters
 DATABASE_URL = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@" \
                f"{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
-
-# Create the engine
 engine = create_engine(DATABASE_URL)
 
 
@@ -1013,7 +960,6 @@ def load_dataframe_to_postgres(df, table_name, engine, if_exists='append', prima
             })
             continue
 
-    # Log the results
     print(f"Successfully inserted rows: {len(successful_rows)}")
     print(f"Failed rows: {len(failed_rows)}")
     #if failed_rows:
@@ -1058,10 +1004,6 @@ def load_dataframe_to_postgres_batch(df, table_name, engine, if_exists='append',
             #print(f"Error during batch {i}: {e}")
             failed_batches.append({"batch_index": i, "rows": batch, "error": str(e)})
 
-    # Log the results
-    print(f"Successfully inserted rows: {successful_rows}")
-    print(f"Failed batches: {len(failed_batches)}")
-
     return successful_rows, failed_batches
 
 def reprocess_failed_batches(failed_batches, table_name, engine):
@@ -1086,7 +1028,6 @@ def reprocess_failed_batches(failed_batches, table_name, engine):
         print(f"Retrying rows from failed batch {batch_index} individually...")
         for _, row in batch_rows.iterrows():
             try:
-                # Insert each row individually
                 row_df = pd.DataFrame([row])
                 row_df.to_sql(
                     table_name,
@@ -1104,18 +1045,11 @@ def reprocess_failed_batches(failed_batches, table_name, engine):
                 })
                 print(f"Error inserting row in batch {batch_index}: {e}")
 
-    # Log the results
-    print(f"Successfully reprocessed rows: {successful_rows}")
-    print(f"Failed rows after retry: {len(retry_failed_rows)}")
-
     return successful_rows, retry_failed_rows
 
 
 
 # In[30]:
-
-
-# List of renamed DataFrames and their descriptions
 dataframes = {
     "fc_locations": df_locations_renamed,
     "fc_filming_locations": df_filming_locations_renamed,
@@ -1127,32 +1061,23 @@ dataframes = {
     "fc_movies": df_movies_cleaned_renamed,
 }
 
-# Iterate over the DataFrames and print the number of rows
 for name, dataframe in dataframes.items():
     print(f"Number of rows in {name}: {len(dataframe)}")
 
 
 # In[31]:
-
-
-# Load the DataFrames into the database
-# Load movies
 print("\nLoading movies...")
 successful_movies, failed_movies = load_dataframe_to_postgres_batch(df_movies_cleaned_renamed,'fc_movies',engine,batch_size=500)
 
-# Load locations
 print("Loading locations...")
 successful_locations, failed_locations = load_dataframe_to_postgres_batch(df_locations_renamed,'fc_locations',engine,batch_size=50)
 
-# Load restaurants
 print("\nLoading restaurants...")
 successful_restaurants, failed_restaurants = load_dataframe_to_postgres_batch(df_restaurants_renamed,'fc_restaurants',engine,batch_size=20)
 
-# Load genres
 print("\nLoading Genres...")
 successful_genres, failed_genres = load_dataframe_to_postgres_batch(df_genres_renamed,'fc_genres',engine,batch_size=5)
 
-# Load actors
 print("\nLoading Actors...")
 successful_actors, failed_actors = load_dataframe_to_postgres_batch(df_actors_renamed,'fc_actors',engine,batch_size=5000)
 
@@ -1193,7 +1118,7 @@ def update_geography(engine):
     """
     Updates the loc_geography column in fc_locations table using ST_SetSRID and ST_MakePoint.
     """
-    # SQL query to update the loc_geography column
+
     update_query = """
     UPDATE fc_locations
     SET
@@ -1203,11 +1128,9 @@ def update_geography(engine):
       AND loc_longitude IS NOT NULL;
     """
     try:
-        # Connect to the database and execute the query
-        with engine.connect() as connection:
-            print("Updating loc_geography column in fc_locations...")
+        with engine.begin() as connection:
             connection.execute(text(update_query))
-            print("Update completed successfully!")
+
     except SQLAlchemyError as e:
         print(f"An error occurred while updating loc_geography: {e}")
 
