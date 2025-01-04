@@ -7,21 +7,21 @@ set -e
 cd "$(dirname "$0")"
 
 # Define the venv path in the data-pipeline folder
-VENV_PATH="data-pipeline/.venv"
+VENV_PATH="./data-pipeline/.venv"
 
 # Step 0: Check if the virtual environment exists
 if [ ! -d "$VENV_PATH" ]; then
   echo "Creating virtual environment in $VENV_PATH..."
-  python3 -m venv "$VENV_PATH"
+  python -m venv "$VENV_PATH"
 fi
 
 # Step 1: Activate virtual environment
 echo "Activating virtual environment..."
-source "$VENV_PATH/bin/activate"
+source "$VENV_PATH/Scripts/activate"
 
 # Step 2: Install dependencies
 echo "Installing dependencies..."
-pip install --no-cache-dir -r data-pipeline/requirements.txt
+pip install --no-cache-dir -r ./data-pipeline/requirements.txt
 
 # Step 3: Ensure the database container is running
 echo "Checking if the database container is running..."
@@ -40,7 +40,7 @@ echo "Database is ready!"
 
 # Step 5: Run the data pipeline script
 echo "Running the data pipeline..."
-python data-pipeline/data_pipeline.py #> pipeline.log 2>&1
+python data-pipeline/data-ingestion-pipeline.py > data-pipeline/pipeline.log 2>&1
 
 # Step 6: Deactivate virtual environment
 echo "Deactivating virtual environment..."

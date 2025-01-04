@@ -216,8 +216,8 @@ df_restaurants_raw = fetch_restaurant_data(app_token, username, password)
 
 # In[10]:
 
-
-xml_file_path = "datasets/Interactive_Map_Data.xml"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+xml_file_path = os.path.join(current_dir, "datasets", "Interactive_Map_Data.xml")
 df_fl_raw = fetch_fliming_locations_data(xml_file_path)
 
 
