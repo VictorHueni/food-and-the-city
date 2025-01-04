@@ -46,6 +46,8 @@ The pipeline is implemented in the `data_ingestion_pipeline.py` script and can b
   - Format : JSON
   - [Links](https://data.cityofnewyork.us/Transportation/Open-Restaurant-Applications-Historic-/pitm-atqc/about_data))
 
+![Datasets before transfo](./docs/datasets-fields.png)
+
 ### Data Pipeline Conceptual architecture 
 ![Data Pipeline Conceptual diagram](./docs/data-pipeline.png)
 
