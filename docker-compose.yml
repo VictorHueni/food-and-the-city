@@ -10,6 +10,7 @@ services:
         - 5432:5432
     volumes:
         - ./data/postgis:/var/lib/postgresql/data
+        - ./db/scripts/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
 
   api:
     build:
