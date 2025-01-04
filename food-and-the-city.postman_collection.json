@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "288bf6bb-787e-425c-8823-4c6f8c49465a",
+		"_postman_id": "9a6a78b9-f246-4481-9b2d-c2913da2158e",
 		"name": "food-and-the-city",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26557699",
-		"_collection_link": "https://victor-ksvsfv8267vz.postman.co/workspace/provider_portal~2970f8a3-19fe-4865-8ebd-27f7783b0647/collection/26557699-288bf6bb-787e-425c-8823-4c6f8c49465a?action=share&source=collection_link&creator=26557699"
+		"_collection_link": "https://victor-ksvsfv8267vz.postman.co/workspace/test~6e777852-8104-45c0-8d27-e2d04b8a36b4/collection/26557699-9a6a78b9-f246-4481-9b2d-c2913da2158e?action=share&source=collection_link&creator=26557699"
 	},
 	"item": [
 		{
@@ -13,7 +13,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/api/v1/movies?actor=Leonardo&Genre=Sci-fi",
+					"raw": "http://127.0.0.1:5000/api/v1/movies?has_filming_location=true",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -40,8 +40,7 @@
 						},
 						{
 							"key": "has_filming_location",
-							"value": "true",
-							"disabled": true
+							"value": "true"
 						},
 						{
 							"key": "name",
@@ -50,257 +49,18 @@
 						},
 						{
 							"key": "actor",
-							"value": "Leonardo"
+							"value": "Leonardo",
+							"disabled": true
 						},
 						{
-							"key": "Genre",
-							"value": "Sci-fi"
+							"key": "genre",
+							"value": "Sci-fi",
+							"disabled": true
 						}
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Get Movies By Year",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/movies?year=2010",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2010"
-								},
-								{
-									"key": "director",
-									"value": "Nolan",
-									"disabled": true
-								},
-								{
-									"key": "has_filming_location",
-									"value": "true",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "Inception",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "Get Movies By Director",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/movies?director=Nolan",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2010",
-									"disabled": true
-								},
-								{
-									"key": "director",
-									"value": "Nolan"
-								},
-								{
-									"key": "has_filming_location",
-									"value": "true",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "Inception",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "Get Movies that Has a filming locations",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/movies?has_filming_location=true",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2010",
-									"disabled": true
-								},
-								{
-									"key": "director",
-									"value": "Nolan",
-									"disabled": true
-								},
-								{
-									"key": "has_filming_location",
-									"value": "true"
-								},
-								{
-									"key": "name",
-									"value": "Inception",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "Get Movies that Has a filming locations By Actor",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/movies?actor=Leonardo",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2010",
-									"disabled": true
-								},
-								{
-									"key": "director",
-									"value": "Nolan",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "Inception",
-									"disabled": true
-								},
-								{
-									"key": "actor",
-									"value": "Leonardo"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				},
-				{
-					"name": "Get Movies By Genre",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/movies?genre=Action",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "year",
-									"value": "2010",
-									"disabled": true
-								},
-								{
-									"key": "director",
-									"value": "Nolan",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "Inception",
-									"disabled": true
-								},
-								{
-									"key": "genre",
-									"value": "Action"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Locations",
@@ -338,49 +98,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Get Locations By  Suburb, City, Country Code",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/locations?suburb=Manhattan&city=City of New York&country_code=us",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"locations"
-							],
-							"query": [
-								{
-									"key": "suburb",
-									"value": "Manhattan"
-								},
-								{
-									"key": "city",
-									"value": "City of New York"
-								},
-								{
-									"key": "country_code",
-									"value": "us"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Filming Location",
@@ -388,7 +106,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/api/v1/filming-locations?genre=Sci-fi",
+					"raw": "http://127.0.0.1:5000/api/v1/filming-locations?actor=Robert&genre=Sci-fi&imdb_id=123",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -405,51 +123,20 @@
 					"query": [
 						{
 							"key": "actor",
-							"value": "Robert",
-							"disabled": true
+							"value": "Robert"
 						},
 						{
 							"key": "genre",
 							"value": "Sci-fi"
+						},
+						{
+							"key": "imdb_id",
+							"value": "123"
 						}
 					]
 				}
 			},
-			"response": [
-				{
-					"name": "Filming Location By IMDB_ID",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/filming-locations?imdb_id=tt0087332",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"v1",
-								"filming-locations"
-							],
-							"query": [
-								{
-									"key": "imdb_id",
-									"value": "tt0087332"
-								}
-							]
-						}
-					},
-					"_postman_previewlanguage": null,
-					"header": null,
-					"cookie": [],
-					"body": null
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Restaurants",
@@ -472,11 +159,6 @@
 						"restaurants"
 					],
 					"query": [
-						{
-							"key": "actor",
-							"value": "Robert",
-							"disabled": true
-						},
 						{
 							"key": "nearby_filming_location",
 							"value": "123"
@@ -509,14 +191,29 @@
 								{
 									"key": "nearby_filming_location",
 									"value": "123"
+								},
+								{
+									"key": "latitude",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "distance",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"_postman_previewlanguage": "Text",
+					"header": [],
 					"cookie": [],
-					"body": null
+					"body": ""
 				},
 				{
 					"name": "Ger Restaurant Nearby By Lat/Lon",
@@ -524,7 +221,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:5000/api/v1/restaurants?latitude=40.71614455&longitude=-73.99790367225708&distance=1000",
+							"raw": "http://127.0.0.1:5000/api/v1/restaurants?latitude=40.7680741&longitude=-73.98189469659101&distance=1000",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -541,11 +238,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": "40.71614455"
+									"value": "40.7680741"
 								},
 								{
 									"key": "longitude",
-									"value": "-73.99790367225708"
+									"value": "-73.98189469659101"
 								},
 								{
 									"key": "distance",
@@ -554,12 +251,46 @@
 							]
 						}
 					},
-					"_postman_previewlanguage": null,
-					"header": null,
+					"_postman_previewlanguage": "Text",
+					"header": [],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
+		},
+		{
+			"name": "Itinaries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/v1/itineraries?distance=300&imdb_ids=tt0087332,tt0119654",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"itineraries"
+					],
+					"query": [
+						{
+							"key": "distance",
+							"value": "300"
+						},
+						{
+							"key": "imdb_ids",
+							"value": "tt0087332,tt0119654"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

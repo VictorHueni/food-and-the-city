@@ -128,4 +128,3 @@ class FilmingLocationSchema(SQLAlchemySchema):
     location = Nested(SimplifiedLocationSchema, many=False)
     movie = Nested(SimplifiedMovieSchema, many=False)
 
-
