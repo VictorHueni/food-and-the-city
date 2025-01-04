@@ -29,11 +29,24 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 import psycopg2
 
+# In[5]:
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+logger.info("Starting data ingestion pipeline...")
 
 # # Data Collection
 
 # In[5]:
-
 
 # Load environment variables from .env file
 load_dotenv()
@@ -209,16 +222,20 @@ def fetch_movies_data(kaggle_dataset, filename="25k IMDb movie Dataset.csv"):
 
 
 # In[9]:
-
-
+# Reading data
+logger.info(f"Reading Restaurant data from External API")
 df_restaurants_raw = fetch_restaurant_data(app_token, username, password)
+logger.info("Restaurant data fetched successfully.")    
+
 
 
 # In[10]:
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 xml_file_path = os.path.join(current_dir, "datasets", "Interactive_Map_Data.xml")
+logger.info(f"Reading XML file from: {xml_file_path}")
 df_fl_raw = fetch_fliming_locations_data(xml_file_path)
+logger.info("Filming locations data fetched successfully.")
 
 
 # In[11]:
@@ -226,7 +243,9 @@ df_fl_raw = fetch_fliming_locations_data(xml_file_path)
 
 # Example usage
 kaggle_dataset = "utsh0dey/25k-movie-dataset"
+logger.info(f"Reading Movies data from Kaggle dataset: {kaggle_dataset}")
 df_movies_raw = fetch_movies_data(kaggle_dataset)
+logger.info("Movies data fetched successfully.")
 
 
 # # Data preparation and transformation
@@ -463,6 +482,7 @@ def process_movie_data(df_movies):
 
 # In[15]:
 
+logger.info("Starting data transformation...")
 
 df_movies = df_movies_raw
 df_movies_cleaned, df_genres, df_movies_genres, df_actors, df_movies_actors = process_movie_data(df_movies)
@@ -660,7 +680,7 @@ def merge_locations(df_filming_locations, df_restaurant_locations):
 
 # In[21]:
 
-
+logger.info("Starting Location Geocode transformation...")
 df_unified_locations = merge_locations(df_locations_m, df_locations_r)
 
 #  TODO : Figure out how to handle duplicates locations
@@ -778,7 +798,8 @@ def process_locations_with_geopy(df):
 
 
 df_standardized_locations = process_locations_with_geopy(df_unified_locations)
-
+logger.info("Location Geocode transformation completed.")
+logger.info("Data transformation completed.")
 
 # code to control if all the location have been well transfered from one dataframe to another after transformation
 # ```python
@@ -823,7 +844,7 @@ df_standardized_locations = process_locations_with_geopy(df_unified_locations)
 
 # In[25]:
 
-
+logger.info("Starting data loading into the database...")
 # Mapping for each table
 mapping_fc_locations = {
     'location_id': 'loc_id',
@@ -1191,3 +1212,6 @@ def update_geography(engine):
         print(f"An error occurred while updating loc_geography: {e}")
 
 update_geography(engine)
+
+logger.info("Data loaded successfully into the database.")
+logger.info("Data ingestion pipeline completed successfully!")
